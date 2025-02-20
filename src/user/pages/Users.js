@@ -1,15 +1,18 @@
 import React from "react";
+
 import UsersList from "../components/UsersList";
+
 const Users = () => {
   const USERS = [
     {
       id: "u1",
       name: "Batout",
       image:
-        "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80",
+        "https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
       places: 3,
     },
   ];
+
   return <UsersList items={USERS} />;
 };
 

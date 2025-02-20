@@ -1,28 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import MainHeader from "./MainHeader";
-import NavLinks from "./NavLinks";
+import MainHeader from './MainHeader';
+import NavLinks from './NavLinks';
+import SideDrawer from './SideDrawer';
+import './MainNavigation.css';
 
-const MainNavigation = (props) => {
+const MainNavigation = props => {
   return (
-    <MainHeader>
-      <button className="w-12 h-12 bg-transparent border-none flex flex-col justify-around mr-8 cursor-pointer md:hidden">
-        <span className="block w-12 rounded pb-1 h-[2.5px] bg-white"></span>
-        <span className="block w-12 rounded pb-1 h-[2.5px] bg-white"></span>
-        <span className="block w-12 rounded pt-1 h-[2.5px] bg-white"></span>
-      </button>
-
-      <h1 className="text-white text-xl">
-        <Link to="/" className="no-underline text-white">
-          YourPlaces
-        </Link>
-      </h1>
-
-      <nav className="text-white hidden md:block">
-        <NavLinks />
-      </nav>
-    </MainHeader>
+    <React.Fragment>
+      <SideDrawer>
+        <nav className="main-navigation__drawer-nav">
+          <NavLinks />
+        </nav>
+      </SideDrawer>
+      <MainHeader>
+        <button className="main-navigation__menu-btn">
+          <span />
+          <span />
+          <span />
+        </button>
+        <h1 className="main-navigation__title">
+          <Link to="/">YourPlaces</Link>
+        </h1>
+        <nav className="main-navigation__header-nav">
+          <NavLinks />
+        </nav>
+      </MainHeader>
+    </React.Fragment>
   );
 };
 
