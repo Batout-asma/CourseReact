@@ -1,11 +1,17 @@
 import React from "react";
+
+import Card from "../../shared/components/UIElements/Card";
 import UserItem from "./UserItem";
 
 const UsersList = (props) => {
   if (props.items.length === 0) {
     return (
       <div className="flex justify-center items-center h-40">
-        <h2 className="text-xl font-semibold text-gray-700">No users found.</h2>
+        <Card>
+          <h2 className="text-xl font-semibold text-gray-700">
+            No users found.
+          </h2>
+        </Card>
       </div>
     );
   }
