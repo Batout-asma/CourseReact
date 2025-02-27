@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
@@ -40,10 +40,10 @@ const DUMMY_PLACES = [
 ];
 
 const UpdatePlace = () => {
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const placeId = useParams().placeId;
-  const identifiedplace = DUMMY_PLACES.find((place) => place.id === placeId);
-  const [formState, InputHandler, setFormData] = useForm(
+
+  const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
         value: "",
@@ -57,29 +57,31 @@ const UpdatePlace = () => {
     false
   );
 
+  const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId);
+
   useEffect(() => {
     setFormData(
       {
         title: {
-          value: identifiedplace.title,
+          value: identifiedPlace.title,
           isValid: true,
         },
         description: {
-          value: identifiedplace.description,
+          value: identifiedPlace.description,
           isValid: true,
         },
       },
       true
     );
     setIsLoading(false);
-  }, [setFormData, identifiedplace]);
+  }, [setFormData, identifiedPlace]);
 
   const placeUpdateSubmitHandler = (event) => {
     event.preventDefault();
     console.log(formState.inputs);
   };
 
-  if (!identifiedplace) {
+  if (!identifiedPlace) {
     return (
       <div className="center">
         <h2>Could not find place!</h2>
@@ -87,7 +89,7 @@ const UpdatePlace = () => {
     );
   }
 
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <div className="center">
         <h2>Loading...</h2>
@@ -100,13 +102,13 @@ const UpdatePlace = () => {
       <Input
         id="title"
         element="input"
-        label="Title"
         type="text"
+        label="Title"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid title."
-        onInput={InputHandler}
-        InitialValue={formState.inputs.title.value}
-        InitialValid={formState.inputs.title.isValid}
+        onInput={inputHandler}
+        initialValue={formState.inputs.title.value}
+        initialValid={formState.inputs.title.isValid}
       />
       <Input
         id="description"
@@ -114,9 +116,9 @@ const UpdatePlace = () => {
         label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter a valid description (min. 5 characters)."
-        onInput={InputHandler}
-        InitialValue={formState.inputs.description.value}
-        InitialValid={formState.inputs.description.isValid}
+        onInput={inputHandler}
+        initialValue={formState.inputs.description.value}
+        initialValid={formState.inputs.description.isValid}
       />
       <Button type="submit" disabled={!formState.isValid}>
         UPDATE PLACE
@@ -124,4 +126,5 @@ const UpdatePlace = () => {
     </form>
   );
 };
+
 export default UpdatePlace;
